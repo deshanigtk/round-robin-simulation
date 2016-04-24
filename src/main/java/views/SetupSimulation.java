@@ -205,6 +205,8 @@ public class SetupSimulation extends javax.swing.JFrame {
 
         ArrayList<ArrayList<Integer>> tableDataList = new ArrayList<>();
         boolean errorFound = false;
+        int speed = 100;
+        int timeQuantum = Integer.valueOf((String)jComboBox3.getSelectedItem());
 
         for (int i = 0; i < 5; i++) {
             ArrayList<Integer> tempList = new ArrayList<>();
@@ -224,12 +226,13 @@ public class SetupSimulation extends javax.swing.JFrame {
         }
 
         for (int i = 0; i < tableDataList.size(); i++) {
-            Simulator.getSimulator().addProcess(new SimProcess(tableDataList.get(i).get(0), tableDataList.get(i).get(2)) {
+            Simulator.getSimulator(speed, timeQuantum).addProcess(new SimProcess(tableDataList.get(i).get(0), tableDataList.get(i).get(2)) {
             });
         }
         for (int i = 0; i < tableDataList.size(); i++) {
-            Simulator.getSimulator().updateTimeTable(tableDataList.get(i).get(0), tableDataList.get(i).get(1));
+            Simulator.getSimulator(speed, timeQuantum).updateTimeTable(tableDataList.get(i).get(0), tableDataList.get(i).get(1));
         }
+        Simulator.getSimulator(speed, timeQuantum).start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed

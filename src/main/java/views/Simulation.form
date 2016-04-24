@@ -138,22 +138,22 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jProgressBar5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField5" max="32767" attributes="0"/>
+                              <Component id="jTextField5" min="-2" pref="47" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jProgressBar4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField4" max="32767" attributes="0"/>
+                              <Component id="jTextField4" min="-2" pref="47" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jProgressBar3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField3" max="32767" attributes="0"/>
+                              <Component id="jTextField3" min="-2" pref="47" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jProgressBar2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField2" max="32767" attributes="0"/>
+                              <Component id="jTextField2" min="-2" pref="47" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -173,23 +173,31 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextField7" max="32767" attributes="0"/>
-                          <Component id="jTextField8" max="32767" attributes="0"/>
-                          <Component id="jTextField9" max="32767" attributes="0"/>
-                          <Component id="jTextField10" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jTextField6" min="-2" pref="43" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jTextField6" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jTextField7" min="-2" pref="47" max="-2" attributes="0"/>
+                                          <Component id="jTextField8" min="-2" pref="47" max="-2" attributes="0"/>
+                                          <Component id="jTextField9" min="-2" pref="47" max="-2" attributes="0"/>
+                                          <Component id="jTextField10" min="-2" pref="47" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="36" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -205,19 +213,19 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextField1" pref="0" max="32767" attributes="0"/>
                           <Component id="jProgressBar1" max="32767" attributes="0"/>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField6" pref="0" max="32767" attributes="0"/>
+                          <Component id="jTextField6" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jTextField1" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField2" alignment="3" pref="0" max="32767" attributes="0"/>
+                                  <Component id="jTextField2" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                                   <Component id="jTextField7" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jProgressBar2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jProgressBar2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -225,10 +233,10 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField3" alignment="3" pref="0" max="32767" attributes="0"/>
+                                  <Component id="jTextField3" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                                   <Component id="jTextField8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jProgressBar3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jProgressBar3" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -236,19 +244,19 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField4" alignment="3" pref="0" max="32767" attributes="0"/>
+                                  <Component id="jTextField4" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                                   <Component id="jTextField9" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jProgressBar4" min="-2" max="-2" attributes="0"/>
+                              <Component id="jProgressBar4" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <Component id="jProgressBar5" max="32767" attributes="0"/>
-                          <Component id="jTextField5" pref="0" max="32767" attributes="0"/>
-                          <Component id="jTextField10" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jProgressBar5" max="-2" attributes="0"/>
+                          <Component id="jTextField5" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jTextField10" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -257,14 +265,39 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+              <Properties>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JProgressBar" name="jProgressBar2">
+              <Properties>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JProgressBar" name="jProgressBar3">
+              <Properties>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JProgressBar" name="jProgressBar4">
+              <Properties>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JProgressBar" name="jProgressBar5">
+              <Properties>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
@@ -292,17 +325,37 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField1">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField2">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField3">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField4">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField5">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField6">
               <Properties>
@@ -404,20 +457,43 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="jTextField11">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField11ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField12">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField13">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField13ActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField14">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField14ActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField15">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -443,8 +519,8 @@
                       <EmptySpace pref="52" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextField17" pref="47" max="32767" attributes="0"/>
-                              <Component id="jTextField18" max="32767" attributes="0"/>
+                              <Component id="jTextField17" min="-2" pref="47" max="-2" attributes="0"/>
+                              <Component id="jTextField18" min="-2" pref="47" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jTextField16" alignment="1" min="-2" pref="47" max="-2" attributes="0"/>
                       </Group>
@@ -509,7 +585,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Simulation Speed"/>
+                <TitledBorder title="Percentage Simulation Speed"/>
               </Border>
             </Property>
           </Properties>
@@ -517,25 +593,30 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="jSlider1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jSlider1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jSlider1" min="-2" pref="53" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jSlider1" min="-2" pref="53" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JSlider" name="jSlider1">
+              <Properties>
+                <Property name="maximum" type="int" value="150"/>
+                <Property name="minimum" type="int" value="50"/>
+                <Property name="value" type="int" value="100"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -603,7 +684,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Stop"/>
+                <Property name="text" type="java.lang.String" value="Start"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>

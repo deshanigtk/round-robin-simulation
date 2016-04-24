@@ -14,11 +14,10 @@ public class SimProcess {
     private final int processID;
     private final int totalBurstTime;
     private int currentBurstTime;
-    private boolean status;
     private boolean isCompleted;
-    private boolean isRunning;
 
     public SimProcess(int processID, int burstTime) {
+        isCompleted = false;
         this.processID = processID;
         this.totalBurstTime = burstTime;
     }
@@ -27,18 +26,13 @@ public class SimProcess {
         currentBurstTime++;
         if (currentBurstTime == totalBurstTime) {
             //code for process completion
+            isCompleted = true;
         }
+        System.out.println("Process ID "+processID+" : progress is "+(currentBurstTime/Float.valueOf(totalBurstTime))*100+"%");
     }
-
-    public void activate() {
-        if (!isCompleted) {
-            status = true;
-
-        }
-    }
-
-    public void deactivate() {
-        isRunning = false;
+    
+    public boolean isCompleted(){
+        return isCompleted;
     }
 
     public int getPID() {
