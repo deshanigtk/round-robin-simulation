@@ -18,8 +18,8 @@ public class Simulator {
     private ArrayList<SimProcess> processes;
     private final ArrayList<ArrayList<Integer>> timeTable = new ArrayList<>();
     private static Simulator simulator;
-    private Processor processor;
-    private boolean finished =false;
+    private final Processor processor;
+    private final boolean finished =false;
     private int count=0;
 
     private Simulator() {
@@ -40,8 +40,8 @@ public class Simulator {
         timeTable.add(temp);
     }
 
-    public void addProcesses(ArrayList<SimProcess> processes) {
-        this.processes = processes;
+    public void addProcess(SimProcess process) {
+        processes.add(process);
     }
 
     private void activateProcess(SimProcess process) {
@@ -49,6 +49,7 @@ public class Simulator {
     }
 
     private void simulate() {
+        processor.run();
         Runnable r = new Runnable() {
             @Override
             public void run() {

@@ -12,17 +12,22 @@ package com.osproject.roundrobinsimulation;
 public class SimProcess {
 
     private final int processID;
-    private final int burstTime;
-    private final int priority;
+    private final int totalBurstTime;
+    private int currentBurstTime;
     private boolean status;
     private boolean isCompleted;
-    private boolean executionTime;
     private boolean isRunning;
 
-    public SimProcess(int processID, int burstTime, int priority) {
+    public SimProcess(int processID, int burstTime) {
         this.processID = processID;
-        this.burstTime = burstTime;
-        this.priority = priority;
+        this.totalBurstTime = burstTime;
+    }
+
+    public void burst() {
+        currentBurstTime++;
+        if (currentBurstTime == totalBurstTime) {
+            //code for process completion
+        }
     }
 
     public void activate() {
@@ -36,15 +41,7 @@ public class SimProcess {
         isRunning = false;
     }
 
-    private void finishExecution() {
-
-    }
-
-    private void terminate() {
-
-    }
-    
-    public int getPID(){
+    public int getPID() {
         return processID;
     }
 }
