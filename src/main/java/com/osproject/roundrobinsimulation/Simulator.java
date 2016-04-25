@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class Simulator {
 
-    private ArrayList<SimProcess> processes;
+    private ArrayList<Job> processes;
     private final ArrayList<ArrayList<Integer>> timeTable = new ArrayList<>();
     private final Scheduler scheduler;
 
@@ -39,6 +39,10 @@ public class Simulator {
         }
         return simulator;
     }
+    
+    public static void refreshSimulator(){
+        simulator =null;
+    }
 
     //methods for Simulation GUI
     public void changeSpeed(int speed) {
@@ -51,6 +55,7 @@ public class Simulator {
         finished = true;
     }
     
+    
     //methods for SetupSimulation GUI
     public void updateTimeTable(Integer processID, Integer arrivalTime) {
         ArrayList<Integer> temp = new ArrayList<>();
@@ -59,7 +64,7 @@ public class Simulator {
         timeTable.add(temp);
     }
 
-    public void addProcess(SimProcess process) {
+    public void addProcess(Job process) {
         processes.add(process);
     }
 
@@ -75,7 +80,7 @@ public class Simulator {
                     for (ArrayList<Integer> i : timeTable) {
                         boolean isFound = false;
                         if (count == i.get(1)) {
-                            for (SimProcess j : processes) {
+                            for (Job j : processes) {
                                 if (j.getPID() == i.get(0)) {
                                     scheduler.addProcess(j);
                                     isFound = true;

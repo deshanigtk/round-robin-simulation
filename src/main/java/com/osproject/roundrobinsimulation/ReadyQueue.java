@@ -11,7 +11,7 @@ package com.osproject.roundrobinsimulation;
  */
 public class ReadyQueue {
 
-    private final SimProcess[] queue = new SimProcess[5];
+    private final Job[] queue = new Job[5];
 
     public boolean isEmpty() {
         for (int i = 0; i < 5; i++) {
@@ -31,8 +31,8 @@ public class ReadyQueue {
         return true;
     }
 
-    public SimProcess getProcess() {
-        SimProcess nextProcess = queue[4];
+    public Job getProcess() {
+        Job nextProcess = queue[4];
         queue[4] = queue[3];
         queue[3] = queue[2];
         queue[2] = queue[1];
@@ -41,7 +41,7 @@ public class ReadyQueue {
         return nextProcess;
     }
 
-    public boolean addProcess(SimProcess process) {
+    public boolean addProcess(Job process) {
         if (isEmpty()){
             queue[4] = process;
             return true;

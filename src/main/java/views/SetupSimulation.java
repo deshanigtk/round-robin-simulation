@@ -5,16 +5,21 @@
  */
 package views;
 
-import com.osproject.roundrobinsimulation.SimProcess;
+import com.osproject.roundrobinsimulation.Job;
 import com.osproject.roundrobinsimulation.Simulator;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author yasas
  */
 public class SetupSimulation extends javax.swing.JFrame {
+
+    private ArrayList<ArrayList<Integer>> tableDataList = new ArrayList<>();
+    private Random rand = new Random();
 
     /**
      * Creates new form SetupSimulation
@@ -58,7 +63,7 @@ public class SetupSimulation extends javax.swing.JFrame {
 
         jLabel3.setText("Input Type");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Random", "Manual" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manual", "Random" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -156,13 +161,10 @@ public class SetupSimulation extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, 0)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -202,41 +204,69 @@ public class SetupSimulation extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Simulator.refreshSimulator();
 
-        ArrayList<ArrayList<Integer>> tableDataList = new ArrayList<>();
         boolean errorFound = false;
         int speed = 100;
-        int timeQuantum = Integer.valueOf((String)jComboBox3.getSelectedItem());
+        int timeQuantum = Integer.valueOf((String) jComboBox3.getSelectedItem());
 
-        for (int i = 0; i < 5; i++) {
-            ArrayList<Integer> tempList = new ArrayList<>();
-            for (int j = 0; j < 3; j++) {
-                if (jTable1.getModel().getValueAt(i, j) != null) {
-                    tempList.add((Integer) jTable1.getModel().getValueAt(i, j));
-                } else {
-                    errorFound = true;
+        if (jComboBox1.getSelectedItem() == "Manual") {
+            for (int i = 0; i < 5; i++) {
+                ArrayList<Integer> tempList = new ArrayList<>();
+                for (int j = 0; j < 3; j++) {
+                    if (jTable1.getModel().getValueAt(i, j) != null) {
+                        tempList.add((Integer) jTable1.getModel().getValueAt(i, j));
+                    } else {
+                        errorFound = true;
+                        break;
+                    }
+                }
+                if (errorFound) {
                     break;
+                } else {
+                    tableDataList.add(tempList);
                 }
             }
-            if (errorFound) {
-                break;
-            } else {
-                tableDataList.add(tempList);
-            }
         }
 
-        for (int i = 0; i < tableDataList.size(); i++) {
-            Simulator.getSimulator(speed, timeQuantum).addProcess(new SimProcess(tableDataList.get(i).get(0), tableDataList.get(i).get(2)) {
+        for (int i = 0;
+                i < tableDataList.size();
+                i++) {
+            Simulator.getSimulator(speed, timeQuantum).addProcess(new Job(tableDataList.get(i).get(0), tableDataList.get(i).get(2)) {
             });
         }
-        for (int i = 0; i < tableDataList.size(); i++) {
+        for (int i = 0;
+                i < tableDataList.size();
+                i++) {
             Simulator.getSimulator(speed, timeQuantum).updateTimeTable(tableDataList.get(i).get(0), tableDataList.get(i).get(1));
         }
-        Simulator.getSimulator(speed, timeQuantum).start();
+
+        if (tableDataList.size() == Integer.valueOf((String) jComboBox2.getSelectedItem())) {
+            dispose();
+            Simulation.main(null);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please Enter Valid Process Details", "Incomplete Form", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
+        if (jComboBox1.getSelectedItem() == "Random") {
+            jTable1.setEnabled(false);
+            for (int i = 0; i < Integer.valueOf((String) jComboBox2.getSelectedItem()); i++) {
+                ArrayList<Integer> tempList = new ArrayList<>();
+                for (int j = 0; j < 3; j++) {
+                    int value = rand.nextInt(100);
+                    tempList.add(value);
+                    jTable1.getModel().setValueAt(value, i, j);
+                }
+                tableDataList.add(tempList);
+            }
+        } else {
+            tableDataList = new ArrayList<>();
+            jTable1.setEnabled(true);
+        }
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
@@ -245,6 +275,21 @@ public class SetupSimulation extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
+        if (jComboBox1.getSelectedItem() == "Random") {
+            jTable1.setEnabled(false);
+            for (int i = 0; i < Integer.valueOf((String) jComboBox2.getSelectedItem()); i++) {
+                ArrayList<Integer> tempList = new ArrayList<>();
+                for (int j = 0; j < 3; j++) {
+                    int value = rand.nextInt(100);
+                    tempList.add(value);
+                    jTable1.getModel().setValueAt(value, i, j);
+                }
+                tableDataList.add(tempList);
+            }
+        } else {
+            tableDataList = new ArrayList<>();
+            jTable1.setEnabled(true);
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -266,16 +311,24 @@ public class SetupSimulation extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SetupSimulation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SetupSimulation.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SetupSimulation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SetupSimulation.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SetupSimulation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SetupSimulation.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SetupSimulation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SetupSimulation.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

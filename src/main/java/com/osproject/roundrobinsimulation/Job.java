@@ -9,14 +9,15 @@ package com.osproject.roundrobinsimulation;
  *
  * @author yasas
  */
-public class SimProcess {
+public class Job {
 
     private final int processID;
     private final int totalBurstTime;
     private int currentBurstTime;
     private boolean isCompleted;
+    private int startedTime;
 
-    public SimProcess(int processID, int burstTime) {
+    public Job(int processID, int burstTime) {
         isCompleted = false;
         this.processID = processID;
         this.totalBurstTime = burstTime;
@@ -37,5 +38,8 @@ public class SimProcess {
 
     public int getPID() {
         return processID;
+    }
+    public void setStartTime(int time){
+        startedTime = time;
     }
 }

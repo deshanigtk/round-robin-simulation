@@ -26,7 +26,7 @@ public class Scheduler {
     private int speed;
 
     //new processes yet to be executed
-    private final ArrayList<SimProcess> newProcesses = new ArrayList<>();
+    private final ArrayList<Job> newProcesses = new ArrayList<>();
 
     public Scheduler(int speed, int timeQuantum) {
         processor = new Processor(speed);
@@ -36,17 +36,22 @@ public class Scheduler {
     }
 
     //adds a new process for execution
-    public void addProcess(SimProcess process) {
+    public void addProcess(Job process) {
         newProcesses.add(process);
+        process.setStartTime(processor.getCount());
     }
 
     private void addNewProcesses() {
-        for (SimProcess process : (ArrayList<SimProcess>) newProcesses.clone()) {
+        for (Job process : (ArrayList<Job>) newProcesses.clone()) {
             if (!readyQueue.isFull()) {
                 System.out.println("process added to ready queue "+readyQueue.addProcess(process));
                 newProcesses.remove(process);
             }
         }
+    }
+    
+    public int getProcessorCount(){
+        return processor.getCount();
     }
 
     public void changeSpeed(int speed) {

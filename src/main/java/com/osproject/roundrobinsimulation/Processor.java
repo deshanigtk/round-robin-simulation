@@ -16,15 +16,17 @@ public class Processor {
 
     private ReadyQueue readyQueue;
     private boolean finished;
-    private SimProcess runningProcess;
-    private SimProcess prevProcess;
+    private Job runningProcess;
+    private Job prevProcess;
     private int speed;
+    private int count;
 
     public Processor(int Speed) {
         this.speed = speed;
+        count =0;
     }
 
-    public SimProcess executeProcess(SimProcess process) {
+    public Job executeProcess(Job process) {
         prevProcess = runningProcess;
         runningProcess = process;
         return prevProcess;
@@ -37,13 +39,17 @@ public class Processor {
     public synchronized void pause() {
         finished = true;
     }
+    
+    public int getCount(){
+        return count;
+    }
 
     public synchronized void start() {
         finished = false;
         Runnable r = new Runnable() {
             @Override
             public void run() {
-
+                count++;
                 while (!finished) {
                     if (runningProcess != null) {
                         runningProcess.burst();
