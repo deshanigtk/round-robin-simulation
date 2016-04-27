@@ -6,8 +6,6 @@
 package com.osproject.roundrobinsimulation;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,10 +18,8 @@ public class Scheduler {
     private final ReadyQueue readyQueue;
 
     //data for process execution
-    private int timeQuantum;
-    private int count = 0;
-    private boolean finished;
-    private int speed;
+    private final int timeQuantum;
+    private static int count = 0;
 
     //new processes yet to be executed
     private final ArrayList<Job> newProcesses = new ArrayList<>();
@@ -31,66 +27,62 @@ public class Scheduler {
     public Scheduler(int speed, int timeQuantum) {
         processor = new Processor(speed);
         readyQueue = new ReadyQueue();
-        this.speed = speed;
         this.timeQuantum = timeQuantum;
     }
 
     //adds a new process for execution
     public void addProcess(Job process) {
         newProcesses.add(process);
-        process.setStartTime(processor.getCount());
+        process.activate(processor.getCount());
     }
 
     private void addNewProcesses() {
         for (Job process : (ArrayList<Job>) newProcesses.clone()) {
             if (!readyQueue.isFull()) {
-                System.out.println("process added to ready queue "+readyQueue.addProcess(process));
+                readyQueue.addProcess(process);
                 newProcesses.remove(process);
             }
         }
     }
-    
-    public int getProcessorCount(){
+
+    public int getProcessorCount() {
         return processor.getCount();
+    }
+
+    public ReadyQueue getReadyQueue() {
+        return readyQueue;
     }
 
     public void changeSpeed(int speed) {
         processor.changeSpeed(speed);
-        this.speed = speed;
     }
 
     public synchronized void pause() {
         processor.pause();
-        finished = true;
     }
+
+    public void updateCount() {
+        if (count % timeQuantum == 0) {
+            addNewProcesses();
+            if (!readyQueue.isEmpty()) {
+                readyQueue.addProcess(processor.executeProcess(readyQueue.getProcess()));
+            }
+        }
+        count++;
+    }
+    
+    public int getExeCount(){
+        return count-processor.getWaitingCount();
+    }
+    
+    
 
     public synchronized void start() {
         processor.start();
-        finished = false;
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                while (!finished) {
-                    if (count % timeQuantum == 0) {
-                        System.out.println("Time Quantum Passed!!!!!!!!!!!!");
-                        addNewProcesses();
-                        if (!readyQueue.isEmpty()) {
-                            readyQueue.addProcess(processor.executeProcess(readyQueue.getProcess()));
-                        }
-                        addNewProcesses();
-                    }
-                    count++;
-                    System.out.println("Schedular Thread!!!");
-                    try {
-                        Thread.sleep(700 - speed * 4);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Simulator.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-
-            }
-        };
-        new Thread(r).start();
+    }
+    
+    public boolean isCompleted(){
+        return newProcesses.isEmpty() && readyQueue.isEmpty() && processor.isIdle();
     }
 
 }

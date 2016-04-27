@@ -20,13 +20,18 @@ public class Processor {
     private Job prevProcess;
     private int speed;
     private int count;
+    private int waiting;
 
     public Processor(int Speed) {
         this.speed = speed;
-        count =0;
+        count = 0;
+        waiting =0;
     }
 
     public Job executeProcess(Job process) {
+        count++;
+        Simulator.getSimulator().getScheduler().updateCount();
+        waiting++;
         prevProcess = runningProcess;
         runningProcess = process;
         return prevProcess;
@@ -43,27 +48,38 @@ public class Processor {
     public int getCount(){
         return count;
     }
+    public int getWaitingCount(){
+        return waiting;
+    }
+    
+    public boolean isIdle(){
+        if(runningProcess==null){
+            return true;
+        }
+        return false;
+    }
 
-    public synchronized void start() {
+    public void start() {
         finished = false;
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                count++;
+                
                 while (!finished) {
+                    Simulator.getSimulator().getScheduler().updateCount();
                     if (runningProcess != null) {
-                        runningProcess.burst();
+                        runningProcess.burst(count);
                         if (runningProcess.isCompleted()) {
                             runningProcess = null;
                         }
                     }
+                    count++;
                     System.out.println("Processor Thread!!!");
                     try {
                         Thread.sleep(700 - speed * 4);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Simulator.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
                 }
             }
         };

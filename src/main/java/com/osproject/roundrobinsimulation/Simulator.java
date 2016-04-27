@@ -15,33 +15,81 @@ import java.util.logging.Logger;
  */
 public class Simulator {
 
-    private ArrayList<Job> processes;
+    private final ArrayList<Job> processes;
     private final ArrayList<ArrayList<Integer>> timeTable = new ArrayList<>();
-    private final Scheduler scheduler;
+    private Scheduler scheduler;
+    private int completedProcessCount;
 
     private boolean finished = false;
-    private int count = 0;
+    private boolean isCompletedSimulation;
+    private int count;
     private int speed;
 
     //for singleton
     private static Simulator simulator;
 
     //private constructor
-    private Simulator(int speed, int timeQuantum) {
-        this.speed = speed;
-        scheduler = new Scheduler(speed, timeQuantum);
+    private Simulator() {
         processes = new ArrayList<>();
+        count = 0;
+        completedProcessCount = 0;
+        isCompletedSimulation = false;
     }
 
-    public static Simulator getSimulator(int speed, int timeQuantum) {
+    public static Simulator getSimulator() {
         if (simulator == null) {
-            simulator = new Simulator(speed, timeQuantum);
+            simulator = new Simulator();
         }
         return simulator;
     }
+
+    public void setSimulator(int speed, int timeQuantum) {
+        scheduler = new Scheduler(speed, timeQuantum);
+        this.speed = speed;
+    }
+
+    public static void refreshSimulator() {
+        simulator = null;
+    }
+
+    public ReadyQueue getReadyQueue() {
+        return scheduler.getReadyQueue();
+    }
+
+    public Integer[] getProgress() {
+        Integer[] progressReport = new Integer[processes.size()];
+        for (int i = 0; i < processes.size(); i++) {
+            progressReport[i] = processes.get(i).getProgress();
+        }
+        return progressReport;
+    }
+
+    public Job getProcess(int index) {
+        return processes.get(index);
+    }
+
+    public int getNoOfProcess() {
+        return processes.size();
+    }
     
-    public static void refreshSimulator(){
-        simulator =null;
+    public int getProcessorCount(){
+        return scheduler.getProcessorCount();
+    }
+
+    public int getCount() {
+        return count;
+    }
+    
+    public int getExecutionTime(){
+        return scheduler.getExeCount();
+    }
+    
+    public float getAvgTurnaround(){
+        return ((float)scheduler.getProcessorCount())/processes.size();
+    }
+
+    public Scheduler getScheduler() {
+        return scheduler;
     }
 
     //methods for Simulation GUI
@@ -49,13 +97,16 @@ public class Simulator {
         scheduler.changeSpeed(speed);
         this.speed = speed;
     }
-    
-    public synchronized void pause(){
+
+    public synchronized void pause() {
         scheduler.pause();
         finished = true;
     }
     
-    
+    public boolean isCompleted(){
+        return isCompletedSimulation;
+    }
+
     //methods for SetupSimulation GUI
     public void updateTimeTable(Integer processID, Integer arrivalTime) {
         ArrayList<Integer> temp = new ArrayList<>();
@@ -67,16 +118,24 @@ public class Simulator {
     public void addProcess(Job process) {
         processes.add(process);
     }
+    
+    public float getAvgWaitingTime(){
+        int totalWT=0;
+        for(int i=0;i<processes.size();i++){
+            totalWT+=processes.get(i).getWaitingTime();
+        }
+        return ((float)totalWT)/processes.size();
+    }
 
     //start simulation
     public synchronized void start() {
         scheduler.start();
-        finished=false;
+        finished = false;
         Runnable r = new Runnable() {
             @Override
             public void run() {
                 while (!finished) {
-                    count++;
+
                     for (ArrayList<Integer> i : timeTable) {
                         boolean isFound = false;
                         if (count == i.get(1)) {
@@ -84,6 +143,7 @@ public class Simulator {
                                 if (j.getPID() == i.get(0)) {
                                     scheduler.addProcess(j);
                                     isFound = true;
+                                    completedProcessCount++;
                                     break;
                                 }
                             }
@@ -91,6 +151,14 @@ public class Simulator {
                                 break;
                             }
                         }
+                    }
+                    count++;
+                    if (processes.size() == completedProcessCount) {
+                        if (scheduler.isCompleted()) {
+                            isCompletedSimulation = true;
+                            pause();
+                        }
+
                     }
                     System.out.println("Simulator Thread!!!");
                     try {
