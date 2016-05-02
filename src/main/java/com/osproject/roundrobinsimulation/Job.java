@@ -11,67 +11,78 @@ package com.osproject.roundrobinsimulation;
  */
 public class Job {
 
-    private final int processID;
-    private final String processName;
-    private final int totalBurstTime;
-    private int currentBurstTime;
-    private boolean isCompleted;
-    private int startedTime;
-    private int finishedTime;
+    //job details
+    private final int id;
+    private final String name;
 
-    public Job(String processName, int processID, int burstTime) {
-        isCompleted = false;
-        this.processID = processID;
-        this.totalBurstTime = burstTime;
-        this.processName = processName;
+    //job properties
+    private final int burstTime;
+    private int currentBurstTime;
+    private boolean completed;
+
+    //job records
+    private int startedCount;
+    private int finishedCount;
+
+    //constructor
+    public Job(String name, int id, int burstTime) {
+        completed = false;
+        this.id = id;
+        this.burstTime = burstTime;
+        this.name = name;
     }
 
-    public void burst(int time) {
-        currentBurstTime++;
-        if (currentBurstTime == totalBurstTime) {
-            //code for process completion
-            isCompleted = true;
-            finishedTime = time+1;
+    public void burst(int count) {
+        if (!completed) {
+            currentBurstTime++;
+            //checks for process completion
+            if (currentBurstTime == burstTime) {
+                completed = true;
+                finishedCount = count + 1;
+            }
         }
     }
-    
-    public void activate(int time){
-        startedTime = time;
+
+    public void activate(int count) {
+        startedCount = count;
         currentBurstTime = 0;
     }
-    public Integer getProgress() {
-        return  Float.valueOf(currentBurstTime / Float.valueOf(totalBurstTime) * 100).intValue();
+
+    //get details
+    public int getID() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    //get properties
+    public int getProgress() {
+        return Float.valueOf(currentBurstTime / Float.valueOf(burstTime) * 100).intValue();
     }
 
     public boolean isCompleted() {
-        return isCompleted;
+        return completed;
     }
 
-    public int getPID() {
-        return processID;
-    }
-    
-    public String getName(){
-        return processName;
+    public int getStartedCount() {
+        return startedCount;
     }
 
-    public int getStartTime() {
-        return startedTime;
-    }
-
-    public int getBurstTime() {
+    public int getCurrentBurstTime() {
         return currentBurstTime;
     }
 
-    public int getWaitingTime(){
-        if(isCompleted){
-            return (finishedTime-startedTime-totalBurstTime);
-        }else{
-            return (Simulator.getSimulator().getProcessorCount()-startedTime-currentBurstTime);
+    public int getWaitingTime() {
+        if (completed) {
+            return (finishedCount - startedCount - burstTime);
+        } else {
+            return (Simulator.getSimulator().getProcessorCount() - startedCount - currentBurstTime);
         }
     }
-    
-    public int getRemainingBT(){
-        return totalBurstTime-currentBurstTime;
+
+    public int getRemainingBT() {
+        return burstTime - currentBurstTime;
     }
 }

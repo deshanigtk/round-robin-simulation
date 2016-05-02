@@ -13,6 +13,23 @@ public class ReadyQueue {
 
     private final Job[] queue = new Job[4];
 
+    public boolean addJob(Job job) {
+        if (isEmpty()) {
+            queue[3] = job;
+            return true;
+        }
+        if (queue[0] != null) {
+            return false;
+        }
+        for (int i = 1; i < 4; i++) {
+            if (queue[i] != null) {
+                queue[i - 1] = job;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isEmpty() {
         for (int i = 0; i < 4; i++) {
             if (queue[i] != null) {
@@ -31,33 +48,21 @@ public class ReadyQueue {
         return true;
     }
 
-    public Job getProcess() {
-        Job nextProcess = queue[3];
+    public Job getJob() {
+        Job nextJob = queue[3];
         queue[3] = queue[2];
         queue[2] = queue[1];
         queue[1] = queue[0];
         queue[0] = null;
-        return nextProcess;
+        return nextJob;
     }
 
-    public boolean addProcess(Job process) {
-        if (isEmpty()){
-            queue[3] = process;
-            return true;
+    //get content as String array
+    public String[] getQueueData() {
+        String[] queueData = new String[4];
+        for (int i = 0; i < 4; i++) {
+            queueData[i] = (String.valueOf(queue[i] != null ? queue[i].getID() : "-"));
         }
-        if (queue[0] != null) {
-            return false;
-        }
-        for (int i = 1; i < 4; i++) {
-            if (queue[i] != null) {
-                queue[i - 1] = process;
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public Job[] getQueue(){
-        return queue;
+        return queueData;
     }
 }

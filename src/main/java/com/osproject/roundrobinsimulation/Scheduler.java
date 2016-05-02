@@ -13,16 +13,15 @@ import java.util.ArrayList;
  */
 public class Scheduler {
 
-    //for process execution
+    //components for execution
     private final Processor processor;
     private final ReadyQueue readyQueue;
 
-    //data for process execution
+    //data for execution
     private final int timeQuantum;
-    private static int count = 0;
 
-    //new processes yet to be executed
-    private final ArrayList<Job> newProcesses = new ArrayList<>();
+    //jobs yet to be executed
+    private final ArrayList<Job> jobs = new ArrayList<>();
 
     public Scheduler(int speed, int timeQuantum) {
         processor = new Processor(speed);
@@ -30,17 +29,28 @@ public class Scheduler {
         this.timeQuantum = timeQuantum;
     }
 
-    //adds a new process for execution
-    public void addProcess(Job process) {
-        newProcesses.add(process);
-        process.activate(processor.getCount());
+    //adds a job for execution
+    public void addJob(Job job) {
+        jobs.add(job);
+        job.activate(getProcessorCount());
     }
 
-    private void addNewProcesses() {
-        for (Job process : (ArrayList<Job>) newProcesses.clone()) {
+    private void addJobsToReadyQueue() {
+        for (Job process : (ArrayList<Job>) jobs.clone()) {
             if (!readyQueue.isFull()) {
-                readyQueue.addProcess(process);
-                newProcesses.remove(process);
+                readyQueue.addJob(process);
+                jobs.remove(process);
+            } else {
+                break;
+            }
+        }
+    }
+
+    public void reportCount(int count) {
+        if (count % timeQuantum == 0) {
+            addJobsToReadyQueue();
+            if (!readyQueue.isEmpty()) {
+                readyQueue.addJob(processor.executeJob(readyQueue.getJob()));
             }
         }
     }
@@ -49,40 +59,28 @@ public class Scheduler {
         return processor.getCount();
     }
 
-    public ReadyQueue getReadyQueue() {
-        return readyQueue;
+    public int getExecutionTime() {
+        return getProcessorCount() - processor.getWastedCount();
     }
 
+    public String[] getQueueData() {
+        return readyQueue.getQueueData();
+    }
+
+    public boolean isCompleted() {
+        return jobs.isEmpty() && readyQueue.isEmpty() && processor.isIdle();
+    }
+
+    //change simulation properties 
     public void changeSpeed(int speed) {
         processor.changeSpeed(speed);
     }
 
-    public synchronized void pause() {
-        processor.pause();
-    }
-
-    public void updateCount() {
-        if (count % timeQuantum == 0) {
-            addNewProcesses();
-            if (!readyQueue.isEmpty()) {
-                readyQueue.addProcess(processor.executeProcess(readyQueue.getProcess()));
-            }
-        }
-        count++;
-    }
-    
-    public int getExeCount(){
-        return count-processor.getWaitingCount();
-    }
-    
-    
-
-    public synchronized void start() {
+    public void start() {
         processor.start();
     }
-    
-    public boolean isCompleted(){
-        return newProcesses.isEmpty() && readyQueue.isEmpty() && processor.isIdle();
-    }
 
+    public void stop() {
+        processor.stop();
+    }
 }

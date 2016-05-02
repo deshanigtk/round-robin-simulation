@@ -31,6 +31,11 @@ public class SetupSimulation extends javax.swing.JFrame {
         names = new javax.swing.JTextField[]{jTextField27, jTextField26, jTextField25, jTextField24, jTextField23};
         arrivalTimes = new javax.swing.JTextField[]{jTextField11, jTextField19, jTextField20, jTextField21, jTextField22};
         burstTimes = new javax.swing.JTextField[]{jTextField12, jTextField28, jTextField29, jTextField30, jTextField31};
+        for (int i = 0; i < 5; i++) {
+            names[i].setDocument(new FixedSizeDocument(17));
+            arrivalTimes[i].setDocument(new FixedSizeDocument(3));
+            burstTimes[i].setDocument(new FixedSizeDocument(3));
+        }
 
     }
 
@@ -44,7 +49,6 @@ public class SetupSimulation extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jTextField27 = new javax.swing.JTextField();
         jTextField26 = new javax.swing.JTextField();
@@ -76,13 +80,10 @@ public class SetupSimulation extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Round Robin Simulation Setup Form");
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu Light", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Round Robin Simulation Setup");
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Details"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Job Details"));
 
         jTextField26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,7 +113,7 @@ public class SetupSimulation extends javax.swing.JFrame {
 
         jLabel17.setText("Arival Time");
 
-        jLabel18.setText("Burst Time");
+        jLabel18.setText("Burst Time(>0)");
 
         jTextField28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,27 +135,28 @@ public class SetupSimulation extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jLabel6)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel17))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel17)
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -303,9 +305,6 @@ public class SetupSimulation extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -319,8 +318,7 @@ public class SetupSimulation extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -346,47 +344,40 @@ public class SetupSimulation extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
         //to enable and disable text fields
-        for (int i = 0; i < Integer.valueOf((String) jComboBox2.getSelectedItem()); i++) {
-            names[i].setEnabled(true);
-            arrivalTimes[i].setEnabled(true);
-            burstTimes[i].setEnabled(true);
-        }
-        for (int i = Integer.valueOf((String) jComboBox2.getSelectedItem()); i < 5; i++) {
-            names[i].setEnabled(false);
-            arrivalTimes[i].setEnabled(false);
-            burstTimes[i].setEnabled(false);
+        for (int i = 0; i < 5; i++) {
+            if (i < Integer.valueOf((String) jComboBox2.getSelectedItem())) {
+                names[i].setEnabled(true);
+                arrivalTimes[i].setEnabled(true);
+                burstTimes[i].setEnabled(true);
+            } else {
+                names[i].setEnabled(false);
+                arrivalTimes[i].setEnabled(false);
+                burstTimes[i].setEnabled(false);
+            }
         }
         if (jComboBox1.getSelectedItem() == "Random") {
             String[] randNames = {"Process Yasas", "Process Deshani", "Process Randil", "Process Hasini", "Process Nadeesha"};
-            Integer[] randArrivalTimes = new Integer[5];
-            Integer[] randBurstTimes = {rand.nextInt(10), rand.nextInt(20), rand.nextInt(30), rand.nextInt(40), rand.nextInt(50)};
-            //to get non equal arrival times
-            for (int i = 0; i < 5; i++) {
-                Integer value = rand.nextInt(20);
-                boolean isAvailable = true;
-                for (Integer j : randArrivalTimes) {
-                    if (Objects.equals(j, value)) {
-                        isAvailable = false;
-                        break;
-                    }
-                }
-                if (isAvailable) {
-                    randArrivalTimes[i] = value;
-                } else {
-                    i--;
-                }
+            Integer[] randArrivalTimes = {rand.nextInt(10), rand.nextInt(20), rand.nextInt(30), rand.nextInt(40), rand.nextInt(50)};
+            Integer[] randBurstTimes = {rand.nextInt(49) + 1, rand.nextInt(99) + 1, rand.nextInt(149) + 1, rand.nextInt(199) + 1, rand.nextInt(249) + 1};
 
+            for (int i = 0; i < 5; i++) {
+                if (i < (Integer.valueOf((String) jComboBox2.getSelectedItem()))) {
+                    names[i].setText(randNames[i]);
+                    arrivalTimes[i].setText(String.valueOf(randArrivalTimes[i]));
+                    burstTimes[i].setText(String.valueOf(randBurstTimes[i]));
+                } else {
+                    names[i].setText("");
+                    arrivalTimes[i].setText("");
+                    burstTimes[i].setText("");
+                }
             }
-            for (int i = 0; i < (Integer.valueOf((String) jComboBox2.getSelectedItem())); i++) {
-                names[i].setText(randNames[i]);
-                arrivalTimes[i].setText(String.valueOf(randArrivalTimes[i]));
-                burstTimes[i].setText(String.valueOf(randBurstTimes[i]));
-            }
+        } else {
             for (int i = (Integer.valueOf((String) jComboBox2.getSelectedItem())); i < 5; i++) {
                 names[i].setText("");
                 arrivalTimes[i].setText("");
@@ -399,37 +390,23 @@ public class SetupSimulation extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (jComboBox1.getSelectedItem() == "Random") {
             String[] randNames = {"Process Yasas", "Process Deshani", "Process Randil", "Process Hasini", "Process Nadeesha"};
-            Integer[] randArrivalTimes = new Integer[5];
-            Integer[] randBurstTimes = {rand.nextInt(10), rand.nextInt(20), rand.nextInt(30), rand.nextInt(40), rand.nextInt(50)};
-            //to get non equal arrival times
-            for (int i = 0; i < 5; i++) {
-                Integer value = rand.nextInt(20);
-                boolean isAvailable = true;
-                for (Integer j : randArrivalTimes) {
-                    if (Objects.equals(j, value)) {
-                        isAvailable = false;
-                        break;
-                    }
-                }
-                if (isAvailable) {
-                    randArrivalTimes[i] = value;
-                } else {
-                    i--;
-                }
+            Integer[] randArrivalTimes = {rand.nextInt(10), rand.nextInt(20), rand.nextInt(30), rand.nextInt(40), rand.nextInt(50)};
+            Integer[] randBurstTimes = {rand.nextInt(49) + 1, rand.nextInt(99) + 1, rand.nextInt(149) + 1, rand.nextInt(199) + 1, rand.nextInt(249) + 1};
 
-            }
-            for (int i = 0; i < (Integer.valueOf((String) jComboBox2.getSelectedItem())); i++) {
-                names[i].setText(randNames[i]);
-                arrivalTimes[i].setText(String.valueOf(randArrivalTimes[i]));
-                burstTimes[i].setText(String.valueOf(randBurstTimes[i]));
-            }
-            for (int i = (Integer.valueOf((String) jComboBox2.getSelectedItem())); i < 5; i++) {
-                names[i].setText("");
-                arrivalTimes[i].setText("");
-                burstTimes[i].setText("");
-            }
-        } else {
             for (int i = 0; i < 5; i++) {
+                if (i < (Integer.valueOf((String) jComboBox2.getSelectedItem()))) {
+                    names[i].setText(randNames[i]);
+                    arrivalTimes[i].setText(String.valueOf(randArrivalTimes[i]));
+                    burstTimes[i].setText(String.valueOf(randBurstTimes[i]));
+                } else {
+                    names[i].setText("");
+                    arrivalTimes[i].setText("");
+                    burstTimes[i].setText("");
+                }
+            }
+
+        } else {
+            for (int i = (Integer.valueOf((String) jComboBox2.getSelectedItem())); i < 5; i++) {
                 names[i].setText("");
                 arrivalTimes[i].setText("");
                 burstTimes[i].setText("");
@@ -451,57 +428,72 @@ public class SetupSimulation extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Simulator.refreshSimulator();
+        int response = JOptionPane.showConfirmDialog(this, "Do you want to start simulation?", "Start Simulation", JOptionPane.YES_NO_OPTION);
+        if (response == 0) {
+            Simulator.refreshSimulator();
 
-        boolean errorFound = false;
-        int speed = 100;
-        int timeQuantum = 2;
-        try {
-            timeQuantum = Integer.valueOf(jTextField1.getText());
-            if (!(timeQuantum > 1)) {
+            boolean errorFound = false;
+            Integer[] pIDs = new Integer[5];
+            int timeQuantum;
+
+            //default value for speed
+            int speed = 100;
+
+            try {
+                timeQuantum = Integer.valueOf(jTextField1.getText());
+                if (!(timeQuantum > 1)) {
+                    errorFound = true;
+                }
+                for (int i = 0; i < Integer.valueOf((String) jComboBox2.getSelectedItem()); i++) {
+                    if ("".equals(names[i].getText()) || Integer.valueOf(burstTimes[i].getText()) < 1 || Integer.valueOf((String) arrivalTimes[i].getText()) < 0) {
+                        errorFound = true;
+                    }
+                }
+            } catch (Exception e) {
+                timeQuantum = -1;
                 errorFound = true;
             }
-        } catch (Exception e) {
-            errorFound = true;
-        }
 
-        Integer[] pIDs = new Integer[5];
-        //generates random values for PIDs
-        for (int i = 0; i < 5; i++) {
-            Integer value = rand.nextInt(100);
-            boolean isAvailable = true;
-            for (Integer j : pIDs) {
-                if (Objects.equals(j, value)) {
-                    isAvailable = false;
-                    break;
+            //generates random values for PIDs
+            for (int i = 0; i < 5; i++) {
+                Integer value = rand.nextInt(90) + 10;
+                boolean isAvailable = true;
+                for (Integer j : pIDs) {
+                    if (Objects.equals(j, value)) {
+                        isAvailable = false;
+                        break;
+                    }
+                }
+                if (isAvailable) {
+                    pIDs[i] = value;
+                } else {
+                    i--;
                 }
             }
-            if (isAvailable) {
-                pIDs[i] = value;
-            } else {
-                i--;
-            }
-        }
 
-        if (!errorFound) {
-            Simulator.getSimulator().setSimulator(speed, timeQuantum);
-            for (int i = 0; i < Integer.valueOf((String) jComboBox2.getSelectedItem()); i++) {
-                Simulator.getSimulator().addProcess(new Job(names[i].getText(),pIDs[i],Integer.valueOf(burstTimes[i].getText())));
+            if (!errorFound) {
+                Simulator.getSimulator().setSimulator(speed, timeQuantum);
+                for (int i = 0; i < Integer.valueOf((String) jComboBox2.getSelectedItem()); i++) {
+                    Simulator.getSimulator().addJob(new Job(names[i].getText(), pIDs[i], Integer.valueOf(burstTimes[i].getText())));
+                }
+                for (int i = 0; i < Integer.valueOf((String) jComboBox2.getSelectedItem()); i++) {
+                    Simulator.getSimulator().updateSchedule(pIDs[i], Integer.valueOf((String) arrivalTimes[i].getText()));
+                }
+
+                dispose();
+                Simulation.main(null);
+            } else {
+                JOptionPane.showMessageDialog(this, "Please complete the form with valid details :\n\nTime Quantum should be greater than 1\nBurst Times should be greater than 0", "Incomplete Input Form", JOptionPane.ERROR_MESSAGE);
             }
-            for (int i = 0; i < Integer.valueOf((String) jComboBox2.getSelectedItem()); i++) {
-                Simulator.getSimulator().updateTimeTable(pIDs[i],Integer.valueOf((String)arrivalTimes[i].getText()));
-            }
-            
-            dispose();
-            Simulation.main(null);
-        } else {
-            JOptionPane.showMessageDialog(this, "Please Enter Valid Inputs", "Incomplete Input Form", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        int response = JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Exit Program", JOptionPane.YES_NO_OPTION);
+        if (response == 0) {
+            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -552,7 +544,6 @@ public class SetupSimulation extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;

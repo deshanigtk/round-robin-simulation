@@ -5,11 +5,11 @@
  */
 package views;
 
-import com.osproject.roundrobinsimulation.Job;
 import com.osproject.roundrobinsimulation.Simulator;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,13 +33,14 @@ public class Simulation extends javax.swing.JFrame {
         initComponents();
         names = new javax.swing.JTextField[]{jTextField27, jTextField26, jTextField25, jTextField24, jTextField23};
         pIDs = new javax.swing.JTextField[]{jTextField11, jTextField19, jTextField20, jTextField21, jTextField22};
+
         rbts = new javax.swing.JTextField[]{jTextField1, jTextField2, jTextField3, jTextField4, jTextField5};
         wts = new javax.swing.JTextField[]{jTextField6, jTextField7, jTextField8, jTextField9, jTextField10};
         readyQueueFields = new javax.swing.JTextField[]{jTextField12, jTextField13, jTextField14, jTextField15};
         progressBars = new javax.swing.JProgressBar[]{jProgressBar1, jProgressBar2, jProgressBar3, jProgressBar4, jProgressBar5};
-        for(int i=0;i<Simulator.getSimulator().getNoOfProcess();i++){
-            names[i].setText(Simulator.getSimulator().getProcess(i).getName());
-            pIDs[i].setText(String.valueOf(Simulator.getSimulator().getProcess(i).getPID()));
+        for (int i = 0; i < Simulator.getSimulator().getJobCount(); i++) {
+            names[i].setText(Simulator.getSimulator().getJob(i).getName());
+            pIDs[i].setText(String.valueOf(Simulator.getSimulator().getJob(i).getID()));
         }
     }
 
@@ -95,7 +96,6 @@ public class Simulation extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jSlider1 = new javax.swing.JSlider();
         jPanel4 = new javax.swing.JPanel();
@@ -110,6 +110,7 @@ public class Simulation extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Round Robin Simulation");
         setResizable(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Process Status"));
@@ -233,11 +234,11 @@ public class Simulation extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(jLabel6)))
@@ -466,18 +467,14 @@ public class Simulation extends javax.swing.JFrame {
                     .addComponent(jButton4)))
         );
 
-        jLabel13.setFont(new java.awt.Font("Ubuntu Light", 1, 18)); // NOI18N
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel13.setText("Round Robin Simulation");
-
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Percentage Simulation Speed"));
 
         jSlider1.setMaximum(150);
         jSlider1.setMinimum(50);
         jSlider1.setValue(100);
-        jSlider1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jSlider1PropertyChange(evt);
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
             }
         });
 
@@ -507,12 +504,20 @@ public class Simulation extends javax.swing.JFrame {
         jLabel12.setText("Total Execution Time");
 
         jTextField16.setEditable(false);
+        jTextField16.setText("-");
         jTextField16.setFocusable(false);
+        jTextField16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField16ActionPerformed(evt);
+            }
+        });
 
         jTextField17.setEditable(false);
+        jTextField17.setText("-");
         jTextField17.setFocusable(false);
 
         jTextField18.setEditable(false);
+        jTextField18.setText("-");
         jTextField18.setFocusable(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -574,16 +579,13 @@ public class Simulation extends javax.swing.JFrame {
                             .addComponent(jLabel15)
                             .addComponent(jLabel16)))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 5, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -637,6 +639,7 @@ public class Simulation extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -651,7 +654,7 @@ public class Simulation extends javax.swing.JFrame {
         // TODO add your handling code here:
         jButton2.setEnabled(false);
         jButton1.setEnabled(true);
-        Simulator.getSimulator().pause();
+        Simulator.getSimulator().stop();
         stopUpdate();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -673,19 +676,20 @@ public class Simulation extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        int response = JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Exit Program", JOptionPane.YES_NO_OPTION);
+        if (response == 0) {
+            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        dispose();
-        SetupSimulation.main(null);
+        int response = JOptionPane.showConfirmDialog(this, "Do you want to start new simulation?", "New Simulation", JOptionPane.YES_NO_OPTION);
+        if (response == 0) {
+            dispose();
+            SetupSimulation.main(null);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jSlider1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSlider1PropertyChange
-        // TODO add your handling code here:
-        Simulator.getSimulator().changeSpeed(jSlider1.getValue());
-    }//GEN-LAST:event_jSlider1PropertyChange
 
     private void jTextField19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField19ActionPerformed
         // TODO add your handling code here:
@@ -694,6 +698,15 @@ public class Simulation extends javax.swing.JFrame {
     private void jTextField26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField26ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField26ActionPerformed
+
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        // TODO add your handling code here:
+        Simulator.getSimulator().changeSpeed(jSlider1.getValue());
+    }//GEN-LAST:event_jSlider1StateChanged
+
+    private void jTextField16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField16ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -737,34 +750,34 @@ public class Simulation extends javax.swing.JFrame {
             public void run() {
                 while (!isStopped) {
                     //update readyQueue
-                    Job[] readyQueue = Simulator.getSimulator().getReadyQueue().getQueue();
+                    String[] queueData = Simulator.getSimulator().getQueueData();
                     for (int i = 0; i < 4; i++) {
-                        readyQueueFields[i].setText(String.valueOf(readyQueue[i] != null ? readyQueue[i].getPID() : "-"));
+                        readyQueueFields[i].setText(queueData[i]);
                     }
 
                     //update progress bar
-                    for (int i = 0; i < Simulator.getSimulator().getProgress().length; i++) {
-                        progressBars[i].setValue(Simulator.getSimulator().getProgress()[i]);
+                    for (int i = 0; i < Simulator.getSimulator().getJobCount(); i++) {
+                        progressBars[i].setValue(Simulator.getSimulator().getJob(i).getProgress());
                     }
-                    
-                    for(int i=0;i<Simulator.getSimulator().getNoOfProcess();i++){
-                        wts[i].setText(String.valueOf(Simulator.getSimulator().getProcess(i).getWaitingTime()));
+
+                    for (int i = 0; i < Simulator.getSimulator().getJobCount(); i++) {
+                        wts[i].setText(String.valueOf(Simulator.getSimulator().getJob(i).getWaitingTime()));
                     }
-                    
-                    for(int i=0;i<Simulator.getSimulator().getNoOfProcess();i++){
-                        rbts[i].setText(String.valueOf(Simulator.getSimulator().getProcess(i).getRemainingBT()));
+
+                    for (int i = 0; i < Simulator.getSimulator().getJobCount(); i++) {
+                        rbts[i].setText(String.valueOf(Simulator.getSimulator().getJob(i).getRemainingBT()));
                     }
-                    
+
                     jTextField18.setText(String.valueOf(Simulator.getSimulator().getExecutionTime()));
-                    
+
                     //sets for finished simulation
-                    if(Simulator.getSimulator().isCompleted()){
+                    if (Simulator.getSimulator().isCompleted()) {
                         jButton1.setEnabled(false);
                         jButton2.setEnabled(false);
                         jSlider1.setEnabled(false);
-                        
-                        jTextField16.setText(String.valueOf(Simulator.getSimulator().getAvgWaitingTime()));
-                        jTextField17.setText(String.valueOf(Simulator.getSimulator().getAvgTurnaround()));
+
+                        jTextField16.setText(String.valueOf(Simulator.getSimulator().getAverageWaitingTime()));
+                        jTextField17.setText(String.valueOf(Simulator.getSimulator().getAverageTurnaroundTime()));
                         isStopped = true;
                     }
 
@@ -793,7 +806,6 @@ public class Simulation extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;

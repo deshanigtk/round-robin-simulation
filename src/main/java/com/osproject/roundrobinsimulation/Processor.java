@@ -14,69 +14,70 @@ import java.util.logging.Logger;
  */
 public class Processor {
 
-    private ReadyQueue readyQueue;
-    private boolean finished;
-    private Job runningProcess;
-    private Job prevProcess;
-    private int speed;
+    //status
+    private boolean running;
     private int count;
-    private int waiting;
 
-    public Processor(int Speed) {
+    //properties
+    private Job job;
+    private int wastedCount;
+
+    //simulation properties
+    private int speed;
+
+    public Processor(int speed) {
         this.speed = speed;
         count = 0;
-        waiting =0;
+        wastedCount = 0;
     }
 
-    public Job executeProcess(Job process) {
+    public Job executeJob(Job job) {
         count++;
-        Simulator.getSimulator().getScheduler().updateCount();
-        waiting++;
-        prevProcess = runningProcess;
-        runningProcess = process;
-        return prevProcess;
+        wastedCount++;
+        Job previousJob = this.job;
+        this.job = job;
+        Simulator.getSimulator().reportCount(count);
+        return previousJob;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public int getWastedCount() {
+        return wastedCount;
+    }
+
+    public boolean isIdle() {
+        return job == null;
+    }
+
+    //change simulation properties
     public void changeSpeed(int speed) {
         this.speed = speed;
     }
 
-    public synchronized void pause() {
-        finished = true;
-    }
-    
-    public int getCount(){
-        return count;
-    }
-    public int getWaitingCount(){
-        return waiting;
-    }
-    
-    public boolean isIdle(){
-        if(runningProcess==null){
-            return true;
-        }
-        return false;
+    public void stop() {
+        running = false;
     }
 
+    //processor thread
     public void start() {
-        finished = false;
+        running = true;
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                
-                while (!finished) {
-                    Simulator.getSimulator().getScheduler().updateCount();
-                    if (runningProcess != null) {
-                        runningProcess.burst(count);
-                        if (runningProcess.isCompleted()) {
-                            runningProcess = null;
+                while (running) {
+                    Simulator.getSimulator().reportCount(count);
+                    if (job != null) {
+                        job.burst(count);
+                        if (job.isCompleted()) {
+                            job = null;
                         }
                     }
                     count++;
-                    System.out.println("Processor Thread!!!");
                     try {
-                        Thread.sleep(700 - speed * 4);
+                        Thread.sleep(15000 / speed);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(Simulator.class.getName()).log(Level.SEVERE, null, ex);
                     }
