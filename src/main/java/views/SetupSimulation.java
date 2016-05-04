@@ -36,6 +36,7 @@ public class SetupSimulation extends javax.swing.JFrame {
             arrivalTimes[i].setDocument(new FixedSizeDocument(3));
             burstTimes[i].setDocument(new FixedSizeDocument(3));
         }
+        jTextField1.setDocument(new FixedSizeDocument(3));
 
     }
 

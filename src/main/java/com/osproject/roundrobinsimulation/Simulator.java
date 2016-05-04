@@ -76,8 +76,8 @@ public class Simulator {
         schedule.add(new int[]{id, arrivalTime});
     }
 
-    public void addJob(Job process) {
-        jobs.add(process);
+    public void addJob(Job job) {
+        jobs.add(job);
     }
 
     public float getAverageWaitingTime() {
